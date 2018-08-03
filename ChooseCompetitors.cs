@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class ChooseCompetitors : MonoBehaviour {
 
@@ -217,8 +218,39 @@ public class ChooseCompetitors : MonoBehaviour {
 
         if (ready1 && ready2)
         {
+            
             gameObject.transform.GetChild(6).gameObject.SetActive(true);
             gameObject.transform.GetChild(8).gameObject.SetActive(false);
+
+            string path = Application.dataPath;
+            path = path.Substring(path.Length);
+            //Debug.Log(path);
+            string currentText = System.IO.File.ReadAllText(path + "Players.txt");
+            string[] lines = currentText.Split('\n');
+            string[] allLines = new string[lines.Length-1];
+
+            int index;
+            for (index = 0; index < lines.Length - 1; index++)
+            {
+                string[] parts = lines[index].Split('\t');
+                string inputLine1 = lines[index];
+                string name = parts[1];
+                if (name == Player1.Name)
+                {
+                    //Debug.Log(inputLine1);
+                    inputLine1 = parts[0]+"\t"+parts[1]+"\t"+parts[2]+"\t"+parts[3]+"\t"+parts[4]+"\t"+
+                            parts[5]+"\t"+1;
+                } else if (name == Player2.Name)
+                {
+                    inputLine1 = parts[0] + "\t" + parts[1] + "\t" + parts[2] + "\t" + parts[3] + "\t" + parts[4] + "\t" +
+                            parts[5] + "\t" + 2;
+                }
+                allLines[index] = inputLine1;
+                Debug.Log(allLines[index]);
+            }
+            System.IO.File.WriteAllLines(@"" + path + "Players.txt", allLines);
+
+
         }
     }
 

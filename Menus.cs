@@ -62,26 +62,33 @@ public class Menus : MonoBehaviour {
                 Debug.Log("Resetting LB");
                 lb.CreateBoard();
             }
-            for (int x = 0; x < numScreens; x++)
+            if (index <= numScreens)
             {
-                GameObject child = gameObject.transform.GetChild(x).gameObject;
-                if (x != index - 1)
+                for (int x = 0; x < numScreens; x++)
                 {
-                    if (x == 3 && cc.isReady)
-                        cc.DestroyPlayers();
-                    child.SetActive(false);
-                    if (x == 1)
+                    GameObject child = gameObject.transform.GetChild(x).gameObject;
+                    if (x != index - 1)
                     {
-                        lb.ResetMenu();
+                        if (x == 3 && cc.isReady)
+                            cc.DestroyPlayers();
+                        child.SetActive(false);
+                        if (x == 1)
+                        {
+                            lb.ResetMenu();
+                        }
+                    }
+                    else
+                    {
+                        if (x == 3 && cc.isReady)
+                            cc.trigger = true;
+                        child.SetActive(true);
                     }
                 }
-                else
-                {
-                    if (x == 3 && cc.isReady)
-                        cc.trigger = true;
-                    child.SetActive(true);
-                }
+            } else
+            {
+                SceneManager.LoadScene(1);
             }
+
         }
     }
 }

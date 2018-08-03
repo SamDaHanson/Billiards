@@ -72,7 +72,8 @@ public class CreatePlayer : MonoBehaviour {
             allLines[index] = lines[index];
         }
         string inputLine = lines.Length.ToString()+")\t"+Name+"\t"+FrontR+","+FrontG+","+FrontB
-                                +"\t"+BackR+","+BackG+","+BackB+"\t"+MidR+","+MidG+","+MidB+"\t"+0+","+0; //0 is for wins/loss
+                                +"\t"+BackR+","+BackG+","+BackB+"\t"+MidR+","+MidG+","+MidB+"\t"+0+","+0+"\t"+0; 
+                                                    //0,0 is for wins/loss & 0 is for playing
         allLines[index] = inputLine;
         System.IO.File.WriteAllLines(@""+path+"Players.txt", allLines);
 
